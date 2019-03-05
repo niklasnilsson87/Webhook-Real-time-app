@@ -1,0 +1,24 @@
+{
+  "name": "nn22ia-examination-3",
+  "version": "1.0.0",
+  "description": "examination-3 serverbaserad programmering",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1dv023/nn222ia-examination-3.git"
+  },
+  "keywords": [
+    "javascript",
+    "node",
+    "examination"
+  ],
+  "author": "Niklas Nilsson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1dv023/nn222ia-examination-3/issues"
+  },
+  "homepage": "https://github.com/1dv023/nn222ia-examination-3#readme"
+}
