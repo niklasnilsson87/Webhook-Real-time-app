@@ -1,2 +1,7 @@
+const socket = require('socket.io')
 
-console.log('hej klient')
+const io = socket.io()
+
+io.on('issue', (data) => {
+  console.log(data)
+})
