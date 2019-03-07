@@ -27,7 +27,7 @@ app.use(helmet.contentSecurityPolicy({
 
 io.on('connection', () => {
   github.on('issues', (repo, data) => {
-    console.log(data)
+    console.log(data, repo)
   })
 })
 server.listen(3000, () => console.log('server running on port 3000'))
