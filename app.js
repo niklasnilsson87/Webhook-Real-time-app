@@ -3,6 +3,14 @@ const path = require('path')
 const hbs = require('express-hbs')
 const app = express()
 
+const server = require('http').createServer(app)
+const io = require('socket.io')(server)
+
+io.on('connection', () => {
+  io.on('connect')
+})
+server.listen(3000, () => console.log('server running on port 3000'))
+
 app.engine('hbs', hbs.express4({
   defaultLayout: path.join(__dirname, 'views', 'layouts', 'default'),
   partialsDir: path.join(__dirname, 'views', 'partials')
@@ -32,4 +40,4 @@ app.use((err, req, res, next) => {
 })
 
 // Start listening.
-app.listen(3000, () => console.log('listening on port 3000....'))
+// app.listen(3000, () => console.log('listening on port 3000....'))
