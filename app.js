@@ -30,6 +30,7 @@ app.use(github)
 app.set('socket.io', io)
 
 io.on('connection', (socket) => {
+  console.log('before issue: ', socket)
   github.on('issues', (repo, data) => {
     console.log('socket: ', socket)
     socket.emit('issue', () => console.log('data: ' + data, 'repo: ' + repo))
