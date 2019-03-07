@@ -1,10 +1,13 @@
 const express = require('express')
 const path = require('path')
 const hbs = require('express-hbs')
+const helmet = require('helmet')
 const app = express()
 
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
+
+app.use(helmet())
 
 io.on('connection', () => {
   io.on('connect')
