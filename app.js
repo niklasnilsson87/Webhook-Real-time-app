@@ -7,11 +7,13 @@ const app = express()
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 
+app.use(helmet())
+
 app.use(helmet.contentSecurityPolicy({
   directives: {
-    defaultSrc: ['self'],
-    styleSrc: ['self', 'cdnjs.cloudflare.com/'],
-    scriptSrc: ['self', 'use.fontawesome.com', 'cdnjs.cloudflare.com']
+    defaultSrc: ["'self'"],
+    styleSrc: ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com'],
+    scriptSrc: ["'self'", "'unsafe-inline'", 'use.fontawesome.com', 'cdnjs.cloudflare.com']
   }
 }))
 
