@@ -8,7 +8,7 @@ const bodyParser = require('body-parser')
 
 const github = GithubWebbHook({ path: '/', secret: process.env.ACCESS_TOKEN })
 
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(github)
 
@@ -25,15 +25,17 @@ app.use(helmet.contentSecurityPolicy({
   }
 }))
 
+app.set('github', github)
+app.use(github)
+app.set('socket.io', io)
+
 io.on('connection', (socket) => {
   github.on('issues', (repo, data) => {
-    // console.log(data, repo)
-    socket.emit('issue', () => console.log(data))
+    console.log('socket: ', socket)
+    socket.emit('issue', () => console.log('data: ' + data, 'repo: ' + repo))
   })
 })
 server.listen(3000, () => console.log('server running on port 3000'))
-
-app.set('socket.io', io)
 
 app.engine('hbs', hbs.express4({
   defaultLayout: path.join(__dirname, 'views', 'layouts', 'default'),
