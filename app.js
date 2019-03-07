@@ -3,6 +3,11 @@ const path = require('path')
 const hbs = require('express-hbs')
 const helmet = require('helmet')
 const app = express()
+const GithubWebbHook = require('express-github-webhook')
+
+const github = GithubWebbHook({ path: '/', secret: process.env.ACCESS_TOKEN })
+
+app.use(github)
 
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
@@ -18,9 +23,13 @@ app.use(helmet.contentSecurityPolicy({
 }))
 
 io.on('connection', () => {
-  io.on('connect')
+  github.on('issues', (repo, data) => {
+    console.log(data)
+  })
 })
 server.listen(3000, () => console.log('server running on port 3000'))
+
+app.set('socket.io', io)
 
 app.engine('hbs', hbs.express4({
   defaultLayout: path.join(__dirname, 'views', 'layouts', 'default'),
