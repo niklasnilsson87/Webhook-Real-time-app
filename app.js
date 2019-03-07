@@ -7,7 +7,13 @@ const app = express()
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 
-app.use(helmet())
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ['self'],
+    styleSrc: ['self', 'cdnjs.cloudflare.com/'],
+    scriptSrc: ['self', 'use.fontawesome.com', 'cdnjs.cloudflare.com']
+  }
+}))
 
 io.on('connection', () => {
   io.on('connect')
