@@ -12,8 +12,8 @@ const controller = require('../controllers/homeController')
 
 // GET /
 router.get('/', controller.index)
-  .post('/', (res, req) => {
-    let push = JSON.parse(req.body.read)
+  .post('/', async (res, req) => {
+    let push = await JSON.parse(req.body)
     console.log(push)
   })
 
