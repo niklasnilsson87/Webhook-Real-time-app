@@ -4,8 +4,11 @@ const hbs = require('express-hbs')
 const helmet = require('helmet')
 const app = express()
 const GithubWebbHook = require('express-github-webhook')
+const bodyParser = require('body-parser')
 
 const github = GithubWebbHook({ path: '/', secret: process.env.ACCESS_TOKEN })
+
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(github)
 
