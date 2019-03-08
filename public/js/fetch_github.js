@@ -1,7 +1,7 @@
 const socket = io.connect()
 
 socket.on('issue', issues => {
-  issues = issues.issues.map(issue => ({
+  issues = issues.issue.map(issue => ({
     title: issue.title,
     description: issue.body,
     url: issue.html_url,

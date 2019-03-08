@@ -22,7 +22,7 @@ server.listen(3000, () => console.log('server running on port 3000'))
 const io = require('socket.io')(server)
 
 io.on('connection', async socket => {
-  let result = await fetchIssues('https://api.github.com/repos/1dv023/ab224qr-examination-3/issues')
+  let result = await fetchIssues('https://api.github.com/repos/1dv023/nn222ia-examination-3/issues')
   io.emit('issue', { issue: result })
 })
 
