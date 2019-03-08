@@ -3,20 +3,12 @@ const path = require('path')
 const hbs = require('express-hbs')
 const helmet = require('helmet')
 const app = express()
-const GithubWebbHook = require('express-github-webhook')
-const bodyParser = require('body-parser')
 
-const github = GithubWebbHook({ path: '/', secret: process.env.ACCESS_TOKEN })
-
-app.use(bodyParser.urlencoded({ extended: true }))
-
-app.use(github)
-
-const server = require('http').createServer(app)
-const io = require('socket.io')(server)
+const fetchIssues = require('./lib/fetchIssue')
 
 app.use(helmet())
 
+app.use(express.urlencoded({ extended: false }))
 app.use(helmet.contentSecurityPolicy({
   directives: {
     defaultSrc: ["'self'"],
@@ -25,18 +17,16 @@ app.use(helmet.contentSecurityPolicy({
   }
 }))
 
-app.set('github', github)
-app.use(github)
-app.set('socket.io', io)
-
-io.on('connection', (socket) => {
-  console.log('before issue: ', socket)
-  github.on('issues', (repo, data) => {
-    console.log('socket: ', socket)
-    socket.emit('issue', console.log('data: ' + data, 'repo: ' + repo))
-  })
-})
+const server = require('http').createServer(app)
 server.listen(3000, () => console.log('server running on port 3000'))
+const io = require('socket.io')(server)
+
+io.on('connection', async socket => {
+  let result = await fetchIssues('https://api.github.com/repos/1dv023/ab224qr-examination-3/issues')
+  io.emit('issue', { issue: result })
+})
+
+app.set('socket.io', io)
 
 app.engine('hbs', hbs.express4({
   defaultLayout: path.join(__dirname, 'views', 'layouts', 'default'),
@@ -49,6 +39,7 @@ app.set('views', path.join(__dirname, 'views'))
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', require('./routes/homeRouter'))
+app.use('/webhook', require('./routes/webhookRouter'))
 
 // Error handler
 app.use((req, res, next) => {

@@ -1,7 +1,15 @@
-const socket = require('socket.io')
+const socket = io.connect()
 
-const io = socket.io()
-
-io.on('issue', (data) => {
-  console.log(data)
+socket.on('issue', issues => {
+  issues = issues.issues.map(issue => ({
+    title: issue.title,
+    description: issue.body,
+    url: issue.html_url,
+    id: issue.number,
+    state: issue.state,
+    comments: issue.comments,
+    createdAt: issue.created_at.substr(0, 10),
+    time: issue.created_at.substr(11, 5)
+  }))
+  console.log(issues)
 })
