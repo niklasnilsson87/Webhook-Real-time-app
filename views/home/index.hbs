@@ -10,21 +10,12 @@
     </div>
   </div>
   <div class="main-div"></div>
-   {{!-- <table class="responsive-table striped">
-        <thead>
-          <th>ID</th>
-          <th>Title</th>
-          <th>Description</th>
-          <th>Comments</th>
-          <th>State</th>
-          <th>Created</th>
-        </thead>
-        <tbody class="list-of-issues"> --}}
+
   {{#if issues.length}}
     {{#each issues}}
 
     <div class="row center-align">
-          <div class="col s12 m6">
+          <div class="col offset-s3 s6">
             <div class="card blue-grey darken-2 issue" id="issue-{{this.id}}">
               <div class="card-content white-text">
                 <h4><a href="{{this.url}}" target="_blank" class="issue-title-link white-text">{{this.title}}</a></h4>
@@ -33,22 +24,12 @@
                 <p class="issue-description">{{this.description}}</p>
               </div>
               <div class="card-action">
-              <span class="issue-comments white-text">{{this.comments}}</span>
+              <p class="issue-comments white-text">{{this.comments}}</p>
               <span class="issue-state white-text">{{this.state}}</span>
               <span class="issue-date white-text">{{this.createdAt}} - {{this.time}}</span>
               </div>
             </div>
           </div>
         </div>
-        {{!-- <tr class="issue" id="issue-{{this.id}}">
-          <td class="issue-number">{{this.number}}</td>
-          <td class="issue-title"><a href="{{this.url}}" target="_blank" class="issue-title-link">{{this.title}}</a></td>
-          <td class="issue-description">{{this.description}}</td>
-          <td class="issue-comments">{{this.comments}}</td>
-          <td class="issue-state">{{this.state}}</td>
-          <td class="issue-date">{{this.createdAt}} - {{this.time}}</td>
-        </tr> --}}
     {{/each}}
     {{/if}}
-        {{!-- </tbody>
-      </table> --}}

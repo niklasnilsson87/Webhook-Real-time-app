@@ -1,21 +1,35 @@
 const socket = window.io.connect()
 
-socket.on('editIssue', issue => {
-  console.log('conntection to editIssue')
-  let changeIssue = document.querySelector(`#issue-${issue.id} .comments`)
+socket.on('addComment', issue => {
+  let changeIssue = document.querySelector(`#issue-${issue.id} .issue-comments`)
   changeIssue.textContent = issue.comments + 1
-  console.log(changeIssue)
 })
 
 socket.on('newIssue', issue => {
-  console.log('Receiving new issue')
-  console.log(issue.title)
   writeIssueToDom(issue)
 })
 
 socket.on('closed', issue => {
-  let changeState = document.querySelector(`issue-${issue.id}`)
+  let div = document.querySelector(`#issue-${issue.id}`)
+  let changeState = document.querySelector(`#issue-${issue.id} .issue-state`)
+  console.log(changeState)
+  div.classList.add('red')
+  div.classList.remove('blue-grey')
   changeState.textContent = issue.state
+})
+
+socket.on('removeComment', issue => {
+  console.log(issue)
+  let changeIssue = document.querySelector(`#issue-${issue.id} .issue-comments`)
+  console.log(changeIssue)
+  changeIssue.textContent = issue.comments - 1
+})
+
+socket.on('editIssue', issue => {
+  let changeTitle = document.querySelector(`#issue-${issue.id} .issue-title-link`)
+  let changeDescription = document.querySelector(`#issue-${issue.id} .issue-description`)
+  changeDescription.textContent = issue.description
+  changeTitle.textContent = issue.title
 })
 
 function writeIssueToDom (issue) {

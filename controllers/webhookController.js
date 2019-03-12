@@ -28,7 +28,7 @@ webhookController.index = async (req, res) => {
   }
 
   if (data.action === 'created') {
-    io.emit('editIssue', { id: issue.id, title: issue.title, comments: issue.comments })
+    io.emit('addComment', { id: issue.id, title: issue.title, comments: issue.comments })
   }
 
   if (data.action === 'opened' || data.action === 'reopened') {
@@ -39,8 +39,12 @@ webhookController.index = async (req, res) => {
     io.emit('closed', issue)
   }
 
+  if (data.action === 'edited') {
+    io.emit('editIssue', issue)
+  }
+
   if (data.action === 'deleted') {
-    io.emit('removeConnect', issue)
+    io.emit('removeComment', issue)
   }
 
   res.sendStatus(200)
