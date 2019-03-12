@@ -1,15 +1,35 @@
-const socket = io.connect()
+const socket = window.io.connect()
 
-socket.on('issue', issues => {
-  issues = issues.issue.map(issue => ({
-    title: issue.title,
-    description: issue.body,
-    url: issue.html_url,
-    id: issue.number,
-    state: issue.state,
-    comments: issue.comments,
-    createdAt: issue.created_at.substr(0, 10),
-    time: issue.created_at.substr(11, 5)
-  }))
-  console.log(issues)
+socket.on('editIssue', issue => {
+  console.log('conntection to editIssue')
+  let changeIssue = document.querySelector(`#issue-${issue.id} .comments`)
+  changeIssue.textContent = issue.comments + 1
+  console.log(changeIssue)
 })
+
+socket.on('newIssue', issue => {
+  console.log('Receiving new issue')
+  console.log(issue.title)
+  writeIssueToDom(issue)
+})
+
+socket.on('closed', issue => {
+  let changeState = document.querySelector(`issue-${issue.id}`)
+  changeState.textContent = issue.state
+})
+
+function writeIssueToDom (issue) {
+  let mainDiv = document.querySelector('.list-of-issues')
+  const issueClone = document.querySelector('.issue')
+  let template = document.importNode(issueClone, true)
+
+  template.querySelector('.issue-number').textContent = issue.number
+  template.querySelector('.issue-title-link').textContent = issue.title
+  template.querySelector('.issue-title-link').setAttribute('href', issue.url)
+  template.querySelector('.issue-description').textContent = issue.description
+  template.querySelector('.issue-comments').textContent = issue.comments
+  template.querySelector('.issue-state').textContent = issue.state
+  template.querySelector('.issue-date').textContent = `${issue.createdAt} - ${issue.time}`
+
+  mainDiv.insertBefore(template, issueClone)
+}

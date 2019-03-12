@@ -9,9 +9,10 @@ const express = require('express')
 const router = express.Router()
 
 const controller = require('../controllers/webhookController')
+const verifyGithub = require('../lib/middlewareGithub')
 
 // GET /
-router.post('/', controller.index)
+router.post('/', verifyGithub, controller.index)
 
 // Exports.
 module.exports = router

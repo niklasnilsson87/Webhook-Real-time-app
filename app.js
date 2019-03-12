@@ -2,18 +2,20 @@ const express = require('express')
 const path = require('path')
 const hbs = require('express-hbs')
 const helmet = require('helmet')
+const bodyParser = require('body-parser')
 const app = express()
-
-const fetchIssues = require('./lib/fetchIssue')
 
 app.use(helmet())
 
-app.use(express.urlencoded({ extended: false }))
+app.use(bodyParser.raw({
+  type: 'application/json'
+}))
+
 app.use(helmet.contentSecurityPolicy({
   directives: {
     defaultSrc: ["'self'"],
     styleSrc: ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com'],
-    scriptSrc: ["'self'", "'unsafe-inline'", 'use.fontawesome.com', 'cdnjs.cloudflare.com']
+    scriptSrc: ["'self'", 'use.fontawesome.com', 'cdnjs.cloudflare.com']
   }
 }))
 
@@ -21,9 +23,8 @@ const server = require('http').createServer(app)
 server.listen(3000, () => console.log('server running on port 3000'))
 const io = require('socket.io')(server)
 
-io.on('connection', async socket => {
-  let result = await fetchIssues('https://api.github.com/repos/1dv023/nn222ia-examination-3/issues')
-  io.emit('issue', { issue: result })
+io.on('connection', () => {
+  console.log('open connection')
 })
 
 app.set('socket.io', io)
