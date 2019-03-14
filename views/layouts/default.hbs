@@ -7,8 +7,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 
+    <template class="row notification align-center">
+      <div class="col s6 card darken-2 card-panel hoverable green removeDiv">
+      {{!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/kxopViU98Xo?controls=0&amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> --}}
+        <p class="notification-user"></p>
+        <p class="notification-event"></p>
+        <p class="notification-text"></p>
+      </div>
+    </template>
 
-    <title>Snippy Snippets</title>
+    <title>Github Issues</title>
   </head>
   <body>
     {{>header}}

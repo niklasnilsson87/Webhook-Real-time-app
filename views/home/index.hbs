@@ -9,27 +9,32 @@
       </div>
     </div>
   </div>
-  <div class="main-div"></div>
-
+  <div class="notificationdiv"></div>
+  <div class="row list-of-issues">
   {{#if issues.length}}
     {{#each issues}}
 
-    <div class="row center-align">
-          <div class="col offset-s3 s6">
-            <div class="card blue-grey darken-2 issue" id="issue-{{this.id}}">
+    <div class="issue">
+          <div class="col s6">
+            <div class="card darken-2 card-panel hoverable{{#if this.closeOpen}} red {{else}} blue-grey {{/if}}" id="issue-{{this.id}}">
               <div class="card-content white-text">
+                <span class="issue-number"># {{this.number}}</span>
+                <span class="card-user right"><img src="{{this.avatarUrl}}" alt="User picture" class="circle">{{this.user}}</span>
                 <h4><a href="{{this.url}}" target="_blank" class="issue-title-link white-text">{{this.title}}</a></h4>
-                <span class="card-user">{{this.user}}</span>
                 <hr>
                 <p class="issue-description">{{this.description}}</p>
               </div>
               <div class="card-action">
-              <p class="issue-comments white-text">{{this.comments}}</p>
-              <span class="issue-state white-text">{{this.state}}</span>
-              <span class="issue-date white-text">{{this.createdAt}} - {{this.time}}</span>
+              <span class="issue-comments white-text left">Comments: {{this.comments}}</span>
+              <span class="issue-state white-text right">State: {{this.state}}</span>
+              <br>
+              <br>
+              <span class="issue-date white-text"> Date/Time: {{this.createdAt}} - {{this.time}}</span>
               </div>
             </div>
           </div>
         </div>
+       
     {{/each}}
     {{/if}}
+     </div>
