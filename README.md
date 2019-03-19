@@ -1,6 +1,6 @@
 # nn222ia-examination-3
 
-## Vad är Urlen till din application?
+## Vad är Urlen till din applikation?
 
 https://cscloud78.lnu.se/
 
@@ -26,7 +26,7 @@ På posten till github så har jag använt mig utav en middleware som ser till a
 
 ##### På servern:
 
-på servern så har jag lagt in att servern ska dölja vilken server som körs med genom att skriva in i conf filen sever-token Off.
+På servern så har jag lagt in att servern ska dölja vilken server som körs med genom att skriva in i conf filen sever-token Off.
 Installerat SSL-certifikat från Let´s Encrypt som gör att anslutningen krypteras och körs på HTTPS.
 Jag har också installerat verktygen [wapiti](http://wapiti.sourceforge.net) som gör en undersökning på olika attacker och visar en rapport som jag inkluderar nedan
 
@@ -44,7 +44,7 @@ mig utav Let´s Encrypt och deras Certbot klient för att installera detta på s
 
 * Environment variables - Dessa variabler finns i den .env fil i produktionen, Jag använder mig utav environment variabler för att lagra känslig information som jag inte vill pusha upp till mitt repositorie. Jag läser in min .env fil med hjälp utav modulen 'dotenv'.
 
-### Vad är skillnaden när du kör din application i produktion gämfört med utveckling?
+### Vad är skillnaden när du kör din applikation i produktion jämfört med utveckling?
 
 I början så var detta ett problem när jag skulle koppla upp mig hela tiden. Varje gång jag gjorde en ändring var jag tvungen att pusha upp till production och i längden var inte detta hållbart tills jag hittade ngrok som hjälper mig att arbeta som om applikationen var i produktion.
 
@@ -78,8 +78,11 @@ Jag har använt mig utav följande moduler:
 
 ### Har du implementerat några extra features som kan motivera högre betyg?
 
-* Notifikationer
-  Jag har implementerat att sidan använder sig utav "pop-up" notifikationer när ett event triggas från github. En grön blinkande box med notifikation om vad som har inträffat, vem som har gjort ändringen eller kommentaren.
+* Notifikationer - 
+  Jag har implementerat att sidan använder sig utav "pop-up" notifikationer när ett event triggas från github. En grön blinkande box med notifikation om vad som har inträffat, vem som har gjort ändringen och vad för ändring och skriver ut kommentaren.
 
-* Använder eget certifikat
+* Använder eget certifikat - 
   Jag använder ett eget certifikat genom Let´s Encrypt.
+
+* Ytterliggare testat säkerheten -
+  Jag har kontrollerat säkerheten på webplatsen med hjälp utav [Qualys SSL Labs](https://www.ssllabs.com/) där jag fick en rapport som jag har  i en pdf (SSL-Server-Test.pdf) i repot.
