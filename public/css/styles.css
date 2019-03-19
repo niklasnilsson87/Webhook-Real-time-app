@@ -20,15 +20,55 @@ footer {
   max-width: 1000px;
 }
 
-.row .col.s6 {
-  width: 48% !important;
-}
-
 .removeDiv {
   margin-left: 28.33% !important;
   width: 500px;
+  border-radius: 20px !important;
 }
 
 .show {
   transition: all 3s ease;
+}
+
+.row.list-of-issues .issue .col.s6 .card {
+  height: 450px;
+}
+
+.row.list-of-issues .issue .col.s6 .card h4 {
+  overflow-y: scroll;
+  max-height: 70px;
+  width: 100%;
+}
+
+.row.list-of-issues .issue .col.s6 .card .issue-description {
+  overflow-y: scroll;
+  max-height: 160px;
+  width: 100%;
+}
+
+span.card-user.right img {
+  margin-right: 5px;
+}
+
+.card-user.right, .card-user.right img {
+  vertical-align: middle;
+}
+
+.card .card-action {
+  position: absolute !important;
+  bottom: 1em;
+  width: 90%;
+}
+
+.list-of-issues {
+  overflow: scroll;
+  overflow-x: hidden;
+  position: relative;
+}
+::-webkit-scrollbar {
+  width: 0px;  /* remove scrollbar space */
+}
+
+.issue-picture {
+  margin-right: 20px;
 }

@@ -34,10 +34,9 @@ webhookController.index = async (req, res) => {
     issue.commentsBody = data.comment.body
   }
 
-  console.log(issue)
-
   switch (data.action) {
     case 'created':
+      console.log(issue)
       io.emit('addComment', issue)
       break
     case 'opened':

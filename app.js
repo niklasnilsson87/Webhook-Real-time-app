@@ -13,7 +13,7 @@ app.use(bodyParser.raw({
 
 app.use(helmet.contentSecurityPolicy({
   directives: {
-    defaultSrc: ["'self'", 'https://www.youtube.com'],
+    defaultSrc: ["'self'"],
     imgSrc: ["'self'", 'avatars3.githubusercontent.com'],
     styleSrc: ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com'],
     scriptSrc: ["'self'", 'use.fontawesome.com', 'cdnjs.cloudflare.com']
@@ -58,6 +58,3 @@ app.use((err, req, res, next) => {
     res.send(err.message || 'internal Server Error')
   }
 })
-
-// Start listening.
-// app.listen(3000, () => console.log('listening on port 3000....'))

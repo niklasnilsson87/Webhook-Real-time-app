@@ -9,14 +9,14 @@
       </div>
     </div>
   </div>
-  <div class="notificationdiv"></div>
+  <div class="notification-div"></div>
   <div class="row list-of-issues">
   {{#if issues.length}}
     {{#each issues}}
 
     <div class="issue">
           <div class="col s6">
-            <div class="card darken-2 card-panel hoverable{{#if this.closeOpen}} red {{else}} blue-grey {{/if}}" id="issue-{{this.id}}">
+            <div class="card darken-2 card-panel hoverable{{#if this.closeOpen}} red {{else}} blue-grey {{/if}} issue-id" id="issue-{{this.id}}">
               <div class="card-content white-text">
                 <span class="issue-number"># {{this.number}}</span>
                 <span class="card-user right"><img src="{{this.avatarUrl}}" alt="User picture" class="circle">{{this.user}}</span>
