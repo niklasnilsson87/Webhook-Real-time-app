@@ -91,6 +91,7 @@ function notification (issue) {
       break
     case 'deleted':
       template.querySelector('.notification-user').textContent = `${issue.user} ${issue.action} a comment on issue: ${issue.title}`
+      template.querySelector('.issue-picture').setAttribute('src', issue.avatarUrl)
       break
   }
 
