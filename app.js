@@ -25,7 +25,8 @@ app.use(helmet.contentSecurityPolicy({
     defaultSrc: ["'self'"],
     imgSrc: ["'self'", 'avatars3.githubusercontent.com'],
     styleSrc: ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com'],
-    scriptSrc: ["'self'", 'use.fontawesome.com', 'cdnjs.cloudflare.com']
+    scriptSrc: ["'self'", 'use.fontawesome.com', 'cdnjs.cloudflare.com'],
+    blockAllMixedContent: true
   }
 }))
 
