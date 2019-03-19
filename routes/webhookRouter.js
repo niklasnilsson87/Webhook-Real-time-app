@@ -1,5 +1,5 @@
 /**
- * Home routes.
+ * Webhook router
  *
  * @author Niklas Nilsson
  * @version 1.0
@@ -11,7 +11,7 @@ const router = express.Router()
 const controller = require('../controllers/webhookController')
 const verifyGithub = require('../lib/middlewareGithub')
 
-// GET /
+// POST /
 router.post('/', verifyGithub, controller.index)
 
 // Exports.

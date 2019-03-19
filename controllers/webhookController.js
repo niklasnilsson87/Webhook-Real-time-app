@@ -1,5 +1,5 @@
 /**
- * Module for homeController
+ * Module for webhookController
  *
  * @author Niklas Nilsson
  * @version 1.0
@@ -9,6 +9,8 @@ const webhookController = {}
 
 /**
  * index post
+ *
+ * Handles the request from github and sorts the payload data into an object.
  */
 webhookController.index = async (req, res) => {
   let io = req.app.get('socket.io')
@@ -61,4 +63,5 @@ webhookController.index = async (req, res) => {
   res.sendStatus(200)
 }
 
+// Exports
 module.exports = webhookController

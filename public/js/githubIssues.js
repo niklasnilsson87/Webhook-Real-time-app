@@ -1,28 +1,37 @@
+/**
+ * Module for githubIssues
+ *
+ * @author Niklas Nilsson
+ * @version 1.0
+ */
+
+// connecting websocket
 const socket = window.io.connect()
 
+// listens for changes in comments
 socket.on('addComment', issue => {
-  console.log('adding comment')
   let changeIssue = document.querySelector(`#issue-${issue.id} .issue-comments`)
   changeIssue.textContent = `Comments: ${issue.comments + 1}`
   notification(issue)
 })
 
+// listens for new issues
 socket.on('newIssue', issue => {
-  console.log('new issue added')
   writeIssueToDom(issue)
   notification(issue)
 })
 
+// listens for closed issues
 socket.on('closed', issue => {
   let div = document.querySelector(`#issue-${issue.id}`)
   let changeState = document.querySelector(`#issue-${issue.id} .issue-state`)
-  console.log('closing issue')
   div.classList.add('red')
   div.classList.remove('blue-grey')
   changeState.textContent = `State: ${issue.state}`
   notification(issue)
 })
 
+// listens for reopened issues
 socket.on('reopened', issue => {
   let div = document.querySelector(`#issue-${issue.id}`)
   let changeState = document.querySelector(`#issue-${issue.id} .issue-state`)
@@ -32,15 +41,15 @@ socket.on('reopened', issue => {
   notification(issue)
 })
 
+// listens for remove comments
 socket.on('removeComment', issue => {
-  console.log('issue comment removed')
   let changeIssue = document.querySelector(`#issue-${issue.id} .issue-comments`)
   changeIssue.textContent = `Comments: ${issue.comments - 1}`
   notification(issue)
 })
 
+// listens for edited title or body
 socket.on('editIssue', issue => {
-  console.log('edited')
   let changeTitle = document.querySelector(`#issue-${issue.id} .issue-title-link`)
   let changeDescription = document.querySelector(`#issue-${issue.id} .issue-description`)
   changeDescription.textContent = issue.description
@@ -48,6 +57,11 @@ socket.on('editIssue', issue => {
   notification(issue)
 })
 
+/**
+ * Function that writes issue to DOM
+ *
+ * @param {Object} issue
+ */
 function writeIssueToDom (issue) {
   let mainDiv = document.querySelector('.list-of-issues')
   const issueClone = document.querySelector('.issue')
@@ -66,8 +80,12 @@ function writeIssueToDom (issue) {
   mainDiv.appendChild(template)
 }
 
+/**
+ * Function that writes out notifications to the DOM
+ *
+ * @param {Object} issue
+ */
 function notification (issue) {
-  console.log('notification')
   const cloneTemplate = document.querySelector('.notification')
   const notificationDiv = document.querySelector('.notification-div')
   const template = document.importNode(cloneTemplate.content, true)
@@ -102,6 +120,12 @@ function notification (issue) {
   }, 5000)
 }
 
+/**
+ * Function that changes attribut and textcontent on template.
+ *
+ * @param {Object} issue
+ * @param {Object} template
+ */
 function notificationText (issue, template) {
   template.querySelector('.issue-picture').setAttribute('src', issue.avatarUrl)
   template.querySelector('.notification-user').textContent = `${issue.user} ${issue.action} issue: ${issue.title}`

@@ -10,6 +10,8 @@ const homeController = {}
 
 /**
  * index GET
+ *
+ * Fetching open and closed issues from github and merged them toghether to one object
  */
 homeController.index = async (req, res) => {
   let openIssues = await fetchIssues('https://api.github.com/repos/1dv023/nn222ia-examination-3/issues?state=open')
