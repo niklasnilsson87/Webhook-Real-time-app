@@ -4,25 +4,29 @@
 
 https://cscloud78.lnu.se/
 
-### Förklara vad du har gjort för att göra applikationen säker både i koden och när du konfigurerar din applications server?
+### Förklara vad du har gjort för att göra applikationen säker både i koden och när du konfigurerar din applikations server?
 
-Kodmässigt: Jag har använt mig utav helmet som default. Det innebär att man sätter olika headers som ökar säkerheten för applikationen.
+##### Kodmässigt: 
+
+Jag har använt mig utav helmet som default. Det innebär att man sätter olika headers som ökar säkerheten för applikationen.
+
 Dessa är:
   
   * DNS Prefetch Control - avaktiverar webbläsarens DNS (förhämtning).
   * Frameguard - förhindrar klick-attacker, Ser till att det som är klickat verkligen tar dig till rätt länk.
   * HidePowerdBy - Döljer vilken plattform servern körs på.
-  * HSTS - "Strict-Transport-Security - förhindrar att anslutningen stannar byter protokoll från HTTPS.
+  * HSTS - "Strict-Transport-Security" - förhindrar att anslutningen stannar byter protokoll från HTTPS.
   * isNotOpen - förhindrar Internet Explorer (upp till v.8) exikverar HTML från din applikation.
   * noSniff - Låter inte webbläsaren gissa MIME-type på ett dokument. En server kan annars ta emot ett .html dokument som innehåller javascript
   * xssFilter - förhindar exikvering av javascript vid expempelvis input fält. Letar efter script taggar och förhindrar dessa att exikveras.
 
-Jag har använt mig utav helmets Content Security Policy där jag vit-listar mina egna filer och de filer som jag har lagt in på min index sida samt att jag har "blockAllMixedContent"
-som ser till att alla filer kommer ifrån en https sida.
+Jag har använt mig utav helmets Content Security Policy där jag vit-listar mina egna filer och de filer som jag har lagt in på min index sida samt att jag har "blockAllMixedContent" som ser till att alla filer kommer ifrån en https sida.
 
 På posten till github så har jag använt mig utav en middleware som ser till att jag bara tar emot posts ifrån Github. Jag läser av sha1 signaturen som jag har lagt in som en secret i webhooken och jämför den med min egna signatur för att säkerhetställa att posten inte har manipulerats.
 
-På servern så har jag lagt in att servern ska dölja vilken server som körs med genom att skriva in i conf filen sever-token Off.
+##### På servern:
+
+på servern så har jag lagt in att servern ska dölja vilken server som körs med genom att skriva in i conf filen sever-token Off.
 Installerat SSL-certifikat från Let´s Encrypt som gör att anslutningen krypteras och körs på HTTPS.
 Jag har också installerat verktygen [wapiti](http://wapiti.sourceforge.net) som gör en undersökning på olika attacker och visar en rapport som jag inkluderar nedan
 
@@ -54,17 +58,17 @@ Alla moduler ser man om dom har kända säkerhetshål när man kör npm install 
 
 Jag har använt mig utav följande moduler:
 
-* express - används för att skapa en server. 
+* express - Används för att skapa en server. 
   Över 7,5 milj nedladdningar i veckan och ofta uppdaterad gör mig trygg att detta är en säker källa.
-* express-hbs - används för att skapa dynamik i min webbplats.
-  20 tusen nedladdningar i veckan, uppdaterad nyligen och finns flera versioner av den.
-* helmet - används för att förbättra säkerheten i applikationen
+* express-hbs - Används för att skapa dynamik i min webbplats.
+  20 tusen nedladdningar i veckan. Uppdaterad nyligen och finns flera versioner av den.
+* helmet - Används för att förbättra säkerheten i applikationen.
   Över 450 tusen nedladdningar och uppdaterad för någon dag sedan.
-* body-parser - används för att parsa data som kommer från req.body.
+* body-parser - Används för att parsa data som kommer från req.body.
   7,8 milj nedladdningar och uppdaterad 10 mån sedan och har funnit i 64 versioner.
-* dotenv - används för att läsa in .env variabler.
+* dotenv - Används för att läsa in .env variabler.
   5.1 milj nedladdningar och uppdaterad några dagar sedan och finns i 35 versioner.
-* crypto - används för att skapa hashning på min secret och jämföra signaturerna mellan servern och github.
+* crypto - Används för att skapa hashning på min secret och jämföra signaturerna mellan servern och github.
   Inbyggd modul i node.js. Eftersom jag bara använder denna till att skapa och jämföra signatur så finns ingen säkerhetsrisk i att jag använder denna. Många förespråkar Bcrypt istället och jag kan hålla med om att den är säkrare men just i mitt fall så räcker det med den inbyggda modulen.
 * socket.io - används för att skapa en webbsocket anslutning till klienten.
   Nästan 2,5 milj nedladdningar i veckan. Uppdaterad för 4 månader sedan och finns i över 100 versioner.
@@ -75,4 +79,7 @@ Jag har använt mig utav följande moduler:
 ### Har du implementerat några extra features som kan motivera högre betyg?
 
 * Notifikationer
-  Jag har implementerat att sidan använder sig utav "popup" notifikationer när ett event triggas från github. En grön blinkande box med notifikation om vad som har inträffat, vem som har gjort ändringen eller kommentaren.
+  Jag har implementerat att sidan använder sig utav "pop-up" notifikationer när ett event triggas från github. En grön blinkande box med notifikation om vad som har inträffat, vem som har gjort ändringen eller kommentaren.
+
+* Använder eget certifikat
+  Jag använder ett eget certifikat genom Let´s Encrypt.
