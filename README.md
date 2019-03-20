@@ -28,6 +28,7 @@ På posten till github så har jag använt mig utav en middleware som ser till a
 
 På servern så har jag lagt in att servern ska dölja vilken server som körs med genom att skriva in i conf filen sever-token Off.
 Installerat SSL-certifikat från Let´s Encrypt som gör att anslutningen krypteras och körs på HTTPS.
+Konfigurerat brandväggen i ubuntu som endast tillåter anslutningar över ssh(port 22), http(port 80) och https(443).
 Jag har också installerat verktygen [wapiti](http://wapiti.sourceforge.net) som gör en undersökning på olika attacker och visar en rapport som jag inkluderar nedan
 
 ![Wapiti Report](./security-report.PNG)
@@ -36,7 +37,7 @@ Jag har också installerat verktygen [wapiti](http://wapiti.sourceforge.net) som
 
 * Reversed proxy - En reversed proxy är en server som sitter mellan interna applikationer och externa klienter, vidarebefordrar klientförfrågningar till lämplig server. Medan många vanliga applikationer, som Node.js, kan fungera som servrar på egen hand, har NGINX ett antal avancerade belastningsbalanserings-, säkerhets- och accelerationsfunktioner som de flesta specialapplikationer saknar. Genom att använda NGINX som reversed proxy kan du lägga till dessa funktioner i alla applikationer. Jag använder min reversed proxy till att vidarebefodra HTTP (port: 80) requests och byta protokoll till HTTPS (port: 443).
 
-* Process manager - Process manager funger som en kontainer där man kan lägga upp sin produktion live. Man kan använda den till bland annat monitorering, lastbalansering,
+* Process manager - Process manager fungerar som en kontainer där man kan lägga upp sin produktion live. Man kan använda den till bland annat monitorering, lastbalansering,
 och att den startar om servern automatiskt om den kraschar. Jag har använt mig utav den genom att lägga upp min produktion på den och att den hjälper mig att starta om.
 
 * TLS certificates - TLS certifikat tillåter dig att använda dig utav HTTPS vilket gör det möjligt att kryptera datan som skickas mellan klient och server. Jag har använt
@@ -48,7 +49,7 @@ mig utav Let´s Encrypt och deras Certbot klient för att installera detta på s
 
 I början så var detta ett problem när jag skulle koppla upp mig hela tiden. Varje gång jag gjorde en ändring var jag tvungen att pusha upp till production och i längden var inte detta hållbart tills jag hittade ngrok som hjälper mig att arbeta som om applikationen var i produktion.
 
-Den enda skillnaden är att jag byter vilken webhooken på github ska lyssna på.
+Den enda skillnaden är att jag byter vilken url webhooken på github ska lyssna på.
 
 ### Vilka extra moduler har du använt under examinationen? Motivera varför och hur du använt dom och om dom är säkra.
 
@@ -60,7 +61,7 @@ Jag har använt mig utav följande moduler:
 
 * express - Används för att skapa en server. 
   Över 7,5 milj nedladdningar i veckan och ofta uppdaterad gör mig trygg att detta är en säker källa.
-* express-hbs - Används för att skapa dynamik i min webbplats.
+* express-hbs - Används för att skapa dynamik på min webbplats.
   20 tusen nedladdningar i veckan. Uppdaterad nyligen och finns flera versioner av den.
 * helmet - Används för att förbättra säkerheten i applikationen.
   Över 450 tusen nedladdningar och uppdaterad för någon dag sedan.
@@ -72,9 +73,11 @@ Jag har använt mig utav följande moduler:
   Inbyggd modul i node.js. Eftersom jag bara använder denna till att skapa och jämföra signatur så finns ingen säkerhetsrisk i att jag använder denna. Många förespråkar Bcrypt istället och jag kan hålla med om att den är säkrare men just i mitt fall så räcker det med den inbyggda modulen.
 * socket.io - används för att skapa en webbsocket anslutning till klienten.
   Nästan 2,5 milj nedladdningar i veckan. Uppdaterad för 4 månader sedan och finns i över 100 versioner.
-* node-fetch - Används för att hämta data från mitt repo, jag hämtar både öppna och stängda issues.
+* node-fetch - Används för att hämta data från mitt repo på github, jag hämtar både öppna och stängda issues.
   Över 8 milj nedladdningar i veckan. Uppdaterad för 4 månader sedan och över 40 versioner.
-* wapiti
+* wapiti - Avänds på servern i rent test syfte för att titta efter säkerhetshål
+  paketet har fått goda betyg på [Source forge](https://sourceforge.net/p/wapiti/news/2018/05/wapiti-301/)
+* production - används för att pusha upp ändringar till produktionsmiljön.
 
 ### Har du implementerat några extra features som kan motivera högre betyg?
 
@@ -84,5 +87,5 @@ Jag har använt mig utav följande moduler:
 * Använder eget certifikat - 
   Jag använder ett eget certifikat genom Let´s Encrypt.
 
-* Ytterliggare testat säkerheten -
-  Jag har kontrollerat säkerheten på webplatsen med hjälp utav [Qualys SSL Labs](https://www.ssllabs.com/) där jag fick en rapport som jag har  i en pdf (SSL-Server-Test.pdf) i repot.
+* Ytterliggare testat SSL -
+  Jag har kontrollerat att kryptering på webplatsen med hjälp utav [Qualys SSL Labs](https://www.ssllabs.com/) där jag fick en rapport som jag har i en pdf (SSL-Server-Test.pdf) i repot.
